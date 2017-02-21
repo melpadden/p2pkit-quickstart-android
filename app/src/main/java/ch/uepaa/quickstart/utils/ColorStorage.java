@@ -37,7 +37,6 @@ public class ColorStorage {
     }
 
     public synchronized void saveColor(int colorCode) {
-
         byte[] data = getColorBytes(colorCode);
         String encoded = Base64.encodeToString(data, Base64.DEFAULT);
 
@@ -47,7 +46,6 @@ public class ColorStorage {
     }
 
     public synchronized byte[] loadColor() {
-
         byte[] data = null;
 
         if (prefs.contains(COLOR_KEY)) {
@@ -64,12 +62,11 @@ public class ColorStorage {
         return null;
     }
 
-    private static byte[] getColorBytes(int color) {
+    public static byte[] getColorBytes(int color) {
         return new byte[]{(byte) Color.red(color), (byte) Color.green(color), (byte) Color.blue(color)};
     }
 
-    public static int getColorCode(byte[] colorData, int defaultColor) {
-
+    public static int getOrCreateColorCode(byte[] colorData, int defaultColor) {
         if (colorData == null || colorData.length != 3) {
             return defaultColor;
         }

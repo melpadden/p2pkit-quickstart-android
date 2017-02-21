@@ -19,7 +19,6 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.MotionEvent;
 
@@ -71,7 +70,6 @@ public class Graph {
     private final float strokeEdge;
 
     public Graph(final Context context) {
-
         Resources res = context.getResources();
 
         this.width = 1;
@@ -94,12 +92,12 @@ public class Graph {
         this.nodeOwnText = res.getString(R.string.node_me);
 
         this.paintBg = new Paint();
-        this.paintBg.setColor(ContextCompat.getColor(context, R.color.graph_bg));
+        this.paintBg.setColor(res.getColor(R.color.graph_bg));
         this.paintBg.setStyle(Paint.Style.FILL);
 
-        this.colorNode = ContextCompat.getColor(context, R.color.graph_node);
-        this.colorEdge = ContextCompat.getColor(context, R.color.graph_edge);
-        this.colorActive = ContextCompat.getColor(context, R.color.graph_active);
+        this.colorNode = res.getColor(R.color.graph_node);
+        this.colorEdge = res.getColor(R.color.graph_edge);
+        this.colorActive = res.getColor(R.color.graph_active);
 
         this.strokeEdge = res.getDimension(R.dimen.graph_edge_stroke);
     }
@@ -162,7 +160,6 @@ public class Graph {
     }
 
     public void setEdgeStrength(final UUID id, final float strength) {
-
         GraphEdge edge = findEdgeById(id);
         if (edge != null) {
             edge.setStrength(strength);
@@ -180,7 +177,6 @@ public class Graph {
     }
 
     public void setHighlighted(final UUID id, final boolean highlighted) {
-
         setNodeHighlighted(id, highlighted);
         setEdgeHighlighted(id, highlighted);
 
@@ -188,7 +184,6 @@ public class Graph {
     }
 
     private void setEdgeHighlighted(final UUID id, final boolean highlighted) {
-
         GraphEdge edge = findEdgeById(id);
         if (edge != null) {
             edge.setStrokeWidth(highlighted ? strokeEdge * 2.0f : strokeEdge);
@@ -197,7 +192,6 @@ public class Graph {
     }
 
     private void setNodeHighlighted(final UUID id, final boolean highlighted) {
-
         GraphNode node = findNodeById(id);
         if (node != null) {
             node.setShowStroke(highlighted);
@@ -205,7 +199,6 @@ public class Graph {
     }
 
     public void updateOwnNode() {
-
         boolean hasStrokedNode = false;
         for (GraphNode node : graphNodes.values()) {
             if (!node.getId().equals(ownNodeId) && node.isShowStroke()) {
@@ -229,8 +222,6 @@ public class Graph {
     }
 
     public void update() {
-        //Log.v(TAG, "update");
-
         Collection<GraphNode> nodes = getNodeList();
         for (GraphNode target : nodes) {
 
@@ -304,8 +295,6 @@ public class Graph {
     }
 
     public void draw(final Canvas canvas) {
-        //Log.v(TAG, "draw");
-
         canvas.drawRect(0, 0, width, height, paintBg);
 
         for (GraphEdge edge : graphEdges.values()) {
@@ -318,8 +307,6 @@ public class Graph {
     }
 
     public void setSize(final int width, final int height) {
-        //Log.v(TAG, "setSize | width = " + width + ", height = " + height);
-
         this.width = width;
         this.height = height;
 
@@ -335,8 +322,6 @@ public class Graph {
     }
 
     public boolean onTouchEvent(MotionEvent event) {
-        //Log.v(TAG, "onTouchEvent | x = " + event.getX() + " , y = " + event.getY());
-
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN: {
                 selectedNode = findTouchedNode(event.getX(), event.getY());
@@ -379,7 +364,6 @@ public class Graph {
     }
 
     private List<GraphEdge> findEdgesById(final UUID id) {
-
         List<GraphEdge> matching = new ArrayList<>();
 
         for (GraphEdge edge : graphEdges.values()) {
@@ -392,7 +376,6 @@ public class Graph {
     }
 
     private GraphNode findTouchedNode(final float x, final float y) {
-
         for (GraphNode node : graphNodes.values()) {
             if (node.isTouched(x, y)) {
                 return node;
@@ -448,7 +431,6 @@ public class Graph {
     }
 
     private void assertGraph(final int nbOfNodes, final int nbOfEdges, final String msg) {
-
         if (graphNodes.size() != nbOfNodes || graphEdges.size() != nbOfEdges) {
             throw new AssertionError(msg);
         }

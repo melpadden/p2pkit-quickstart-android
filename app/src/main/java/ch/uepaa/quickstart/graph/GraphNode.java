@@ -125,7 +125,6 @@ public class GraphNode {
     }
 
     public void draw(final Canvas canvas) {
-
         circlePaint.setAlpha(touched ? 240 : 255);
         canvas.drawCircle(px, py, radius, circlePaint);
         if (showStroke) {

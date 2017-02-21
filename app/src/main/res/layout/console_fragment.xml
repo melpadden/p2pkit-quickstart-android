@@ -3,107 +3,43 @@
                 android:layout_height="match_parent"
                 android:padding="4dp">
 
-    <RelativeLayout
-        android:id="@+id/kitContainer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_margin="4dp"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/kitLabel"
+        <RelativeLayout
+            android:id="@+id/p2pContainer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:gravity="center"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:text="@string/console_kit"/>
+            android:layout_margin="4dp"
+            android:orientation="vertical">
 
-        <Switch
-            android:id="@+id/kitSwitch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/kitLabel"
-            android:layout_centerHorizontal="true"
-            android:checked="false"
-            android:switchMinWidth="60dp"
-            android:textOff=""
-            android:textOn=""
-            android:thumbTextPadding="12dp"/>
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/p2pLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:text="@string/console_p2p"/>
 
-    <RelativeLayout
-        android:id="@+id/p2pContainer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="4dp"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/p2pLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:gravity="center"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:text="@string/console_p2p"/>
-
-        <Switch
-            android:id="@+id/p2pSwitch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/p2pLabel"
-            android:layout_centerHorizontal="true"
-            android:checked="false"
-            android:switchMinWidth="60dp"
-            android:textOff=""
-            android:textOn=""
-            android:thumbTextPadding="12dp"/>
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/geoContainer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_margin="4dp"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/geoLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:gravity="center"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:text="@string/console_geo"/>
-
-        <Switch
-            android:id="@+id/geoSwitch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/geoLabel"
-            android:layout_centerHorizontal="true"
-            android:checked="false"
-            android:switchMinWidth="60dp"
-            android:textOff=""
-            android:textOn=""
-            android:thumbTextPadding="12dp"/>
-    </RelativeLayout>
+            <Switch
+                android:id="@+id/p2pSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/p2pLabel"
+                android:layout_centerHorizontal="true"
+                android:checked="false"
+                android:switchMinWidth="60dp"
+                android:textOff=""
+                android:textOn=""
+                android:thumbTextPadding="12dp"/>
+        </RelativeLayout>
 
     <ScrollView
         android:id="@+id/logContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/clearTextView"
-        android:layout_below="@+id/kitContainer"
+        android:layout_below="@+id/p2pContainer"
         android:layout_margin="4dp"
         android:layout_marginTop="4dp"
         android:background="@color/background_grey">

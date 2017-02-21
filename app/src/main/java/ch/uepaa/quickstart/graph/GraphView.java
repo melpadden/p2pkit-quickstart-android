@@ -46,7 +46,6 @@ public class GraphView extends SurfaceView implements SurfaceHolder.Callback {
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
-
         if (thread == null) {
 
             thread = new GraphThread(holder, graph);
@@ -57,13 +56,11 @@ public class GraphView extends SurfaceView implements SurfaceHolder.Callback {
 
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-
         graph.setSize(width, height);
     }
 
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
-
         boolean retry = true;
         thread.setRunning(false);
 

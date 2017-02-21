@@ -63,31 +63,26 @@ public class Logger {
     }
 
     public static synchronized String getLogs() {
-
         return messages.toString();
     }
 
     public static synchronized void clearLogs() {
-
         messages.setLength(0);
     }
 
     public static synchronized void addObserver(LogHandler handler) {
-
         if (!observers.contains(handler)) {
             observers.add(handler);
         }
     }
 
     public static synchronized void removeObserver(LogHandler handler) {
-
         if (observers.contains(handler)) {
             observers.remove(handler);
         }
     }
 
     private static synchronized void log(final String level, final String tag, final String msg) {
-
         CharSequence currentTime = DateFormat.format("hh:mm:ss", System.currentTimeMillis());
         String message = currentTime + (level.length() > 1 ? (" - " + level) : "") + "\n" + tag + ": " + msg + "\n---";
 
@@ -96,7 +91,6 @@ public class Logger {
     }
 
     private static synchronized void notifyObservers(final String message) {
-
         for (LogHandler handler : observers) {
             handler.handleLogMessage(message);
         }
