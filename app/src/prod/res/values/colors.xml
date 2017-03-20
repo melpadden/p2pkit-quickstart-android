@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="accent">#e047cf</color>
+    <color name="primary">#e047cf</color>
+    <color name="primary_dark">#000000</color>
+    <color name="background">#fdfdfd</color>
+    <color name="background_grey">#f6f6f6</color>
+    <color name="graph_bg">#000000</color>
+    <color name="graph_node">#48E0A6</color>
+    <color name="graph_edge">#eaebef</color>
+    <color name="graph_active">#b9babd</color>
+</resources>

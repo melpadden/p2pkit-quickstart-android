@@ -20,6 +20,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
@@ -27,6 +28,7 @@ import android.view.View;
 
 import com.larswerkman.holocolorpicker.ColorPicker;
 
+import ch.uepaa.quickstart.BuildConfig;
 import ch.uepaa.quickstart.R;
 
 /**
@@ -71,6 +73,15 @@ public class ColorPickerFragment extends DialogFragment {
     }
 
     @Override
+    public void onDismiss(DialogInterface dialog) {
+        super.onDismiss(dialog);
+
+        if (BuildConfig.BUILD_CONFIGURATION.equals("prod")) {
+            hideSystemBars();
+        }
+    }
+
+    @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.color_picker_fragment, null);
@@ -98,5 +109,18 @@ public class ColorPickerFragment extends DialogFragment {
         });
 
         return builder.create();
+    }
+
+    private void hideSystemBars() {
+
+        if (this.getActivity() == null) {
+            return;
+        }
+
+        int flags = View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            flags |= View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
+        }
+        this.getActivity().getWindow().getDecorView().setSystemUiVisibility(flags);
     }
 }

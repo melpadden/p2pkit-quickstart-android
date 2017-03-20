@@ -8,13 +8,22 @@ android {
         applicationId "ch.uepaa.quickstart"
         minSdkVersion 16
         targetSdkVersion 22
-        versionCode 4
-        versionName "1.2"
+        versionCode 6
+        versionName "2.0.1"
     }
 
     buildTypes {
         release {
-            debuggable true
+            debuggable false
+        }
+    }
+
+    productFlavors {
+        dev {
+            buildConfigField 'String', "BUILD_CONFIGURATION", '"dev"'
+        }
+        prod {
+            buildConfigField 'String', "BUILD_CONFIGURATION", '"prod"'
         }
     }
 }

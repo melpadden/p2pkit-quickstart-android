@@ -2,8 +2,11 @@ package ch.uepaa.quickstart;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.DialogInterface;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -36,10 +39,10 @@ public class MainActivity extends AppCompatActivity implements ConsoleFragment.C
 
     public void enableP2PKit() {
         try {
-            Logger.i("P2PKit", "Enabling P2PKit");
+            Logger.i("P2PKit", "Enabling p2pkit");
             P2PKit.enable(this, APP_KEY, p2pKitStatusListener);
         } catch (AlreadyEnabledException e) {
-            Logger.w("P2PKit", "P2PKit is already enabled " + e.getLocalizedMessage());
+            Logger.w("P2PKit", "p2pkit is already enabled " + e.getLocalizedMessage());
         }
     }
 
@@ -47,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements ConsoleFragment.C
 
         @Override
         public void onEnabled() {
-            Logger.i("P2PKitStatusListener", "Successfully enabled P2PKit");
+            Logger.i("P2PKitStatusListener", "Successfully enabled p2pkit");
 
             UUID ownNodeId = P2PKit.getMyPeerId();
             setupPeers(ownNodeId);
@@ -56,18 +59,18 @@ public class MainActivity extends AppCompatActivity implements ConsoleFragment.C
 
         @Override
         public void onDisabled() {
-            Logger.i("P2PKitStatusListener", "P2PKit disabled");
+            Logger.i("P2PKitStatusListener", "p2pkit disabled");
         }
 
         @Override
         public void onError(StatusResult statusResult) {
-            Toast.makeText(MainActivity.this, "Could not start p2pkit, please check the device log", Toast.LENGTH_LONG).show();
-            Logger.e("P2PKitStatusListener", "P2PKit lifecycle error with code: " + statusResult.getStatusCode());
+            handleStatusResult(statusResult);
+            Logger.e("P2PKitStatusListener", "p2pkit lifecycle error with code: " + statusResult.getStatusCode());
         }
     };
 
     public void disableP2PKit() {
-        Logger.i("P2PKit", "Disable P2PKit");
+        Logger.i("P2PKit", "Disable p2pkit");
         P2PKit.disable();
         teardownPeers();
     }
@@ -88,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements ConsoleFragment.C
 
     @Override
     public void stopDiscovery() {
-        Logger.i("P2PKitClient", "Stop discovery");
+        Logger.i("P2PKit", "Stop discovery");
         P2PKit.stopDiscovery();
 
         for (Peer peer : nearbyPeers) {
@@ -106,9 +109,9 @@ public class MainActivity extends AppCompatActivity implements ConsoleFragment.C
             P2PKit.pushDiscoveryInfo(data);
             success = true;
         } catch (DiscoveryInfoTooLongException e) {
-            Logger.e("P2PKitClient", "Failed to push new discovery info, info too long: " + e.getLocalizedMessage());
+            Logger.e("P2PKit", "Failed to push new discovery info, info too long: " + e.getLocalizedMessage());
         } catch (DiscoveryInfoUpdatedTooOftenException e) {
-            Logger.e("P2PKitClient", "Failed to push new discovery info due to throttling: " + e.getLocalizedMessage());
+            Logger.e("P2PKit", "Failed to push new discovery info due to throttling: " + e.getLocalizedMessage());
         }
 
         return success;
@@ -119,6 +122,7 @@ public class MainActivity extends AppCompatActivity implements ConsoleFragment.C
 
         @Override
         public void onStateChanged(final int state) {
+            handleDiscoveryStateChange(state);
             Logger.i("DiscoveryListener", "Discovery state changed: " + state);
         }
 
@@ -180,6 +184,19 @@ public class MainActivity extends AppCompatActivity implements ConsoleFragment.C
     public void onDestroy() {
         super.onDestroy();
         disableP2PKit();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (BuildConfig.BUILD_CONFIGURATION.equals("prod")) {
+            hideSystemBars();
+        }
+
+        if (P2PKit.isEnabled()) {
+            handleDiscoveryStateChange(P2PKit.getDiscoveryState());
+        }
     }
 
     @Override
@@ -273,7 +290,7 @@ public class MainActivity extends AppCompatActivity implements ConsoleFragment.C
         byte[] newColorBytes = ColorStorage.getColorBytes(colorCode);
 
         if (!pushNewDiscoveryInfo(newColorBytes)) {
-            Toast.makeText(MainActivity.this, "Could not update discovery info, please check device log for error code", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, R.string.p2pkit_discovery_info_update_failed, Toast.LENGTH_LONG).show();
             return;
         }
 
@@ -305,6 +322,46 @@ public class MainActivity extends AppCompatActivity implements ConsoleFragment.C
         updateOwnDiscoveryInfo(colorCode);
     }
 
+    private void handleStatusResult(final StatusResult statusResult) {
+
+        String description = "";
+
+        if (statusResult.getStatusCode() == StatusResult.INVALID_APP_KEY) {
+            description = "Invalid app key";
+        }
+        else if (statusResult.getStatusCode() == StatusResult.INVALID_PACKAGE_NAME) {
+            description = "Invalid package name";
+        }
+        else if (statusResult.getStatusCode() == StatusResult.INCOMPATIBLE_CLIENT_VERSION) {
+            description = "Incompatible p2pkit (SDK) version, please update";
+        }
+        else if (statusResult.getStatusCode() == StatusResult.SERVER_CONNECTION_UNAVAILABLE) {
+            description = "Server connection not available";
+        }
+        else if (statusResult.getStatusCode() == StatusResult.INTERNAL_ERROR) {
+            description = "Internal error";
+        }
+
+        showError(description, true);
+    }
+
+    private void handleDiscoveryStateChange(final int state) {
+
+        if (state == DiscoveryListener.STATE_OFF) {
+            return;
+        }
+
+        if ((state & DiscoveryListener.STATE_LOCATION_PERMISSION_NOT_GRANTED) == DiscoveryListener.STATE_LOCATION_PERMISSION_NOT_GRANTED) {
+            Toast.makeText(this, R.string.p2pkit_state_no_location_permission, Toast.LENGTH_LONG).show();
+        }
+        else if ((state & DiscoveryListener.STATE_SERVER_CONNECTION_UNAVAILABLE) == DiscoveryListener.STATE_SERVER_CONNECTION_UNAVAILABLE) {
+            Toast.makeText(this, R.string.p2pkit_state_offline, Toast.LENGTH_LONG).show();
+        }
+        else if (state != DiscoveryListener.STATE_ON) {
+            Toast.makeText(this, R.string.p2pkit_state_suspended, Toast.LENGTH_LONG).show();
+        }
+    }
+
     private void showConsole() {
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         Fragment prev = getFragmentManager().findFragmentByTag(ConsoleFragment.FRAGMENT_TAG);
@@ -315,6 +372,35 @@ public class MainActivity extends AppCompatActivity implements ConsoleFragment.C
 
         ConsoleFragment fragment = ConsoleFragment.newInstance();
         fragment.show(ft, ConsoleFragment.FRAGMENT_TAG);
+    }
+
+    private void showError(final String message, final boolean retry) {
+
+        final AlertDialog.Builder builder =  new AlertDialog.Builder(this).setTitle("p2pkit Error").setMessage(message).setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+
+        if (retry) {
+            builder.setNegativeButton("Retry", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    MainActivity.this.enableP2PKit();
+                }
+            });
+        }
+
+        builder.create().show();
+    }
+
+    private void hideSystemBars() {
+        int flags = View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            flags |= View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
+        }
+        getWindow().getDecorView().setSystemUiVisibility(flags);
     }
 
 }

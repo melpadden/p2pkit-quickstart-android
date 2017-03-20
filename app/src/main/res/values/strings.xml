@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">P2PKit</string>
+    <string name="app_name">p2pkit</string>
     <string name="console">Console</string>
     <string name="console_kit">Enable\np2pkit</string>
     <string name="console_p2p">P2P\nDiscovery</string>
@@ -11,6 +11,10 @@
     <string name="set">Set</string>
     <string name="cancel">Cancel</string>
     <string name="clear">Clear</string>
-    <string name="p2pkit_not_enabled">P2PKit is not enabled.</string>
+    <string name="p2pkit_not_enabled">p2pkit is not enabled.</string>
+    <string name="p2pkit_discovery_info_update_failed">Failed! Discovery info update is limited to once per 60 seconds.</string>
+    <string name="p2pkit_state_no_location_permission">Discovery is suspended. Please allow p2pkit permission to use your location.</string>
+    <string name="p2pkit_state_offline">Server connection not available. Please make sure your device is connected to the internet.</string>
+    <string name="p2pkit_state_suspended">Discovery is suspended. Please make sure to turn on Bluetooth &amp; WiFi.</string>
 
 </resources>
