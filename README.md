@@ -28,9 +28,9 @@ p2pkit is an easy to use SDK that bundles together several proximity technologie
 
 ### Get Started Video
 
-[![Get started video](https://i.ytimg.com/vi/iId5n7lhJ5Y/mqdefault.jpg)](https://youtu.be/iId5n7lhJ5Y)
+[![Get started video](https://i.ytimg.com/vi/P10GcELDAmU/mqdefault.jpg)](https://www.youtube.com/watch?v=P10GcELDAmU)
 
-[Watch video here](https://youtu.be/iId5n7lhJ5Y)
+[Watch video here](https://www.youtube.com/watch?v=P10GcELDAmU)
 
 
 ### p2pkit License
