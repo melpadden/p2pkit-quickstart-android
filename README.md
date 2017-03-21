@@ -15,7 +15,7 @@ p2pkit is an easy to use SDK that bundles together several proximity technologie
 
 > **Note:** p2pkit validates package names so don't forget to add ``ch.uepaa.quickstart`` to the known package names when creating your application key
 
-3. Head to the ``MainActivity.java file and replace <YOUR APPLICATION KEY>`` with your new key:
+3. Head to the ``MainActivity.java`` file and replace ``<YOUR APPLICATION KEY>`` with your new key:
 
   ```
   private static final String APP_KEY = "<YOUR PERSONAL APP KEY>";
