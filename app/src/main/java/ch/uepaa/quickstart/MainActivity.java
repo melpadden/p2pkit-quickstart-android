@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,6 +25,7 @@ import ch.uepaa.p2pkit.StatusResult;
 import ch.uepaa.p2pkit.discovery.DiscoveryInfoTooLongException;
 import ch.uepaa.p2pkit.discovery.DiscoveryInfoUpdatedTooOftenException;
 import ch.uepaa.p2pkit.discovery.DiscoveryListener;
+import ch.uepaa.p2pkit.discovery.DiscoveryPowerMode;
 import ch.uepaa.p2pkit.discovery.Peer;
 import ch.uepaa.p2pkit.discovery.ProximityStrength;
 import ch.uepaa.quickstart.fragments.ColorPickerFragment;
@@ -67,6 +69,13 @@ public class MainActivity extends AppCompatActivity implements ConsoleFragment.C
             handleStatusResult(statusResult);
             Logger.e("P2PKitStatusListener", "p2pkit lifecycle error with code: " + statusResult.getStatusCode());
         }
+
+        @Override
+        public void onException(Throwable throwable) {
+            String errorMessage = "Exception was thrown: " + throwable.getLocalizedMessage();
+            showError(errorMessage, true);
+            Logger.e("P2PKitStatusListener", "p2pkit crashed with exception: " + Log.getStackTraceString(throwable));
+        }
     };
 
     public void disableP2PKit() {
@@ -83,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements ConsoleFragment.C
 
         try {
             P2PKit.enableProximityRanging();
-            P2PKit.startDiscovery(ownDiscoveryData, mDiscoveryListener);
+            P2PKit.startDiscovery(ownDiscoveryData, DiscoveryPowerMode.HIGH_PERFORMANCE, mDiscoveryListener);
         } catch (DiscoveryInfoTooLongException e) {
             Logger.w("P2PKit", "Can not start discovery, discovery info is to long " + e.getLocalizedMessage());
         }
@@ -329,17 +338,14 @@ public class MainActivity extends AppCompatActivity implements ConsoleFragment.C
         if (statusResult.getStatusCode() == StatusResult.INVALID_APP_KEY) {
             description = "Invalid app key";
         }
-        else if (statusResult.getStatusCode() == StatusResult.INVALID_PACKAGE_NAME) {
-            description = "Invalid package name";
+        else if (statusResult.getStatusCode() == StatusResult.INVALID_APPLICATION_ID) {
+            description = "Invalid application id";
         }
         else if (statusResult.getStatusCode() == StatusResult.INCOMPATIBLE_CLIENT_VERSION) {
             description = "Incompatible p2pkit (SDK) version, please update";
         }
         else if (statusResult.getStatusCode() == StatusResult.SERVER_CONNECTION_UNAVAILABLE) {
             description = "Server connection not available";
-        }
-        else if (statusResult.getStatusCode() == StatusResult.INTERNAL_ERROR) {
-            description = "Internal error";
         }
 
         showError(description, true);
