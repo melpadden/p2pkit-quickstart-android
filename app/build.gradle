@@ -35,5 +35,5 @@ dependencies {
     // libs
     compile 'com.larswerkman:HoloColorPicker:1.5'
     // p2pkit
-    compile 'ch.uepaa.p2p:p2pkit-android:2.0.4'
+    compile 'ch.uepaa.p2p:p2pkit-android:2.0.+'
 }
