@@ -72,9 +72,9 @@ public class MainActivity extends AppCompatActivity implements ConsoleFragment.C
 
         @Override
         public void onException(Throwable throwable) {
-            String errorMessage = "Exception was thrown: " + throwable.getLocalizedMessage();
+            String errorMessage = "An error occurred and p2pkit stopped, please try again.";
             showError(errorMessage, true);
-            Logger.e("P2PKitStatusListener", "p2pkit crashed with exception: " + Log.getStackTraceString(throwable));
+            Logger.e("P2PKitStatusListener", "p2pkit threw an exception: " + Log.getStackTraceString(throwable));
         }
     };
 
@@ -193,6 +193,24 @@ public class MainActivity extends AppCompatActivity implements ConsoleFragment.C
     public void onDestroy() {
         super.onDestroy();
         disableP2PKit();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        if (P2PKit.isEnabled()) {
+            P2PKit.setDiscoveryPowerMode(DiscoveryPowerMode.HIGH_PERFORMANCE);
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        if (P2PKit.isEnabled()) {
+            P2PKit.setDiscoveryPowerMode(DiscoveryPowerMode.LOW_POWER);
+        }
     }
 
     @Override
@@ -339,7 +357,7 @@ public class MainActivity extends AppCompatActivity implements ConsoleFragment.C
             description = "Invalid app key";
         }
         else if (statusResult.getStatusCode() == StatusResult.INVALID_APPLICATION_ID) {
-            description = "Invalid application id";
+            description = "Invalid application ID";
         }
         else if (statusResult.getStatusCode() == StatusResult.INCOMPATIBLE_CLIENT_VERSION) {
             description = "Incompatible p2pkit (SDK) version, please update";
