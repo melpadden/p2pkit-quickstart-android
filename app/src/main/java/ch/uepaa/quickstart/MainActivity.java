@@ -75,6 +75,7 @@ public class MainActivity extends AppCompatActivity implements ConsoleFragment.C
             String errorMessage = "An error occurred and p2pkit stopped, please try again.";
             showError(errorMessage, true);
             Logger.e("P2PKitStatusListener", "p2pkit threw an exception: " + Log.getStackTraceString(throwable));
+            teardownPeers();
         }
     };
 
