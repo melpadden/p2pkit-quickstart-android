@@ -81,8 +81,11 @@ public class MainActivity extends AppCompatActivity implements ConsoleFragment.C
 
     public void disableP2PKit() {
         Logger.i("P2PKit", "Disable p2pkit");
-        P2PKit.disable();
-        teardownPeers();
+
+        if (P2PKit.isEnabled()) {
+            P2PKit.disable();
+            teardownPeers();
+        }
     }
 
     @Override
@@ -192,6 +195,7 @@ public class MainActivity extends AppCompatActivity implements ConsoleFragment.C
 
     @Override
     public void onDestroy() {
+
         disableP2PKit();
         super.onDestroy();
     }
