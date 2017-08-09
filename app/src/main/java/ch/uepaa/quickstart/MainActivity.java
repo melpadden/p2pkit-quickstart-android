@@ -192,8 +192,8 @@ public class MainActivity extends AppCompatActivity implements ConsoleFragment.C
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
         disableP2PKit();
+        super.onDestroy();
     }
 
     @Override
