@@ -33,10 +33,10 @@ android {
 
 dependencies {
     // android
-    compile 'com.android.support:appcompat-v7:25.3.1'
-    compile 'com.android.support:design:25.3.1'
+    implementation 'com.android.support:appcompat-v7:25.3.1'
+    implementation 'com.android.support:design:25.3.1'
     // libs
-    compile 'com.larswerkman:HoloColorPicker:1.5'
+    implementation 'com.larswerkman:HoloColorPicker:1.5'
     // p2pkit
-    compile 'ch.uepaa.p2p:p2pkit-android:2.+'
+    implementation 'ch.uepaa.p2p:p2pkit-android:2.+'
 }
