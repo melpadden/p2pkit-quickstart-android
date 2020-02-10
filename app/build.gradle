@@ -2,7 +2,6 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion '25.0.2'
 
     defaultConfig {
         applicationId "ch.uepaa.quickstart"
@@ -18,12 +17,16 @@ android {
         }
     }
 
+    flavorDimensions 'environment'
+
     productFlavors {
         dev {
             buildConfigField 'String', "BUILD_CONFIGURATION", '"dev"'
+            dimension 'environment'
         }
         prod {
             buildConfigField 'String', "BUILD_CONFIGURATION", '"prod"'
+            dimension 'environment'
         }
     }
 }
