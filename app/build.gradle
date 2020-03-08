@@ -2,7 +2,6 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion '25.0.2'
 
     defaultConfig {
         applicationId "ch.uepaa.quickstart"
@@ -18,22 +17,26 @@ android {
         }
     }
 
+    flavorDimensions 'environment'
+
     productFlavors {
         dev {
             buildConfigField 'String', "BUILD_CONFIGURATION", '"dev"'
+            dimension 'environment'
         }
         prod {
             buildConfigField 'String', "BUILD_CONFIGURATION", '"prod"'
+            dimension 'environment'
         }
     }
 }
 
 dependencies {
     // android
-    compile 'com.android.support:appcompat-v7:25.3.1'
-    compile 'com.android.support:design:25.3.1'
+    implementation 'com.android.support:appcompat-v7:25.3.1'
+    implementation 'com.android.support:design:25.3.1'
     // libs
-    compile 'com.larswerkman:HoloColorPicker:1.5'
+    implementation 'com.larswerkman:HoloColorPicker:1.5'
     // p2pkit
-    compile 'ch.uepaa.p2p:p2pkit-android:2.+'
+    implementation 'ch.uepaa.p2p:p2pkit-android:2.+'
 }
