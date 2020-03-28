@@ -13,7 +13,7 @@
  * the information contained herein to third parties in part or in whole by any means
  * is strictly prohibited, unless prior written permission is obtained from Uepaa AG.
  */
-package ch.uepaa.quickstart.graph;
+package com.quovirus.proximityalarm.graph;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -29,8 +29,8 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
-import ch.uepaa.quickstart.R;
-import ch.uepaa.quickstart.utils.DroidUtils;
+import com.quovirus.proximityalarm.R;
+import com.quovirus.proximityalarm.utils.DroidUtils;
 
 /**
  * Graph.

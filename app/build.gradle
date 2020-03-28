@@ -4,7 +4,7 @@ android {
     compileSdkVersion 25
 
     defaultConfig {
-        applicationId "ch.uepaa.quickstart"
+        applicationId "com.quovirus.proximityalarm"
         minSdkVersion 16
         targetSdkVersion 22
         versionCode 8

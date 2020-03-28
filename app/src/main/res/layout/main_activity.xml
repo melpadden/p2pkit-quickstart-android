@@ -5,11 +5,12 @@
                 android:background="@color/background"
                 tools:context=".MainActivity">
 
-    <ch.uepaa.quickstart.graph.GraphView
+    <com.quovirus.proximityalarm.graph.GraphView
         android:id="@+id/graph"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"/>
 
+<!--
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/color_action"
         android:layout_width="wrap_content"
@@ -22,5 +23,6 @@
         android:layout_marginRight="@dimen/activity_horizontal_margin"
         android:clickable="true"
         android:src="@drawable/ic_color_picker_24dp"/>
+-->
 
 </RelativeLayout>

@@ -13,7 +13,7 @@
  * the information contained herein to third parties in part or in whole by any means
  * is strictly prohibited, unless prior written permission is obtained from Uepaa AG.
  */
-package ch.uepaa.quickstart.graph;
+package com.quovirus.proximityalarm.graph;
 
 import android.graphics.Canvas;
 import android.graphics.Color;

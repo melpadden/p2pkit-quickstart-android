@@ -13,7 +13,7 @@
  * the information contained herein to third parties in part or in whole by any means
  * is strictly prohibited, unless prior written permission is obtained from Uepaa AG.
  */
-package ch.uepaa.quickstart.fragments;
+package com.quovirus.proximityalarm.fragments;
 
 import android.app.Activity;
 import android.app.DialogFragment;
@@ -21,13 +21,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
 import ch.uepaa.p2pkit.P2PKit;
 import ch.uepaa.p2pkit.discovery.DiscoveryListener;
-import ch.uepaa.quickstart.R;
-import ch.uepaa.quickstart.utils.Logger;
+import com.quovirus.proximityalarm.R;
+import com.quovirus.proximityalarm.utils.Logger;
 
 /**
  * Console fragment.
@@ -137,6 +138,14 @@ public class ConsoleFragment extends DialogFragment implements Logger.LogHandler
                 }
             }
         });
+
+        final Button btnCloseConsole = (Button) mainView.findViewById(R.id.btn_closeconsole);
+        btnCloseConsole.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mainView.setVisibility(View.GONE);
+            }
+        });
     }
 
     private boolean getKitEnabled() {
@@ -149,6 +158,16 @@ public class ConsoleFragment extends DialogFragment implements Logger.LogHandler
         }else{
             return false;
         }
+    }
+
+    private void btnCloseConsole_Click() {
+        btnCloseConsole_Click();
+    }
+
+    private void btnCloseConsole_Click(final View view){
+        mainView.setVisibility(View.GONE);
+        //view.setVisibility(View.GONE);
+        //this.onDestroy();
     }
 
 }

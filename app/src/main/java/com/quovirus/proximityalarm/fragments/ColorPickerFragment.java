@@ -13,7 +13,7 @@
  * the information contained herein to third parties in part or in whole by any means
  * is strictly prohibited, unless prior written permission is obtained from Uepaa AG.
  */
-package ch.uepaa.quickstart.fragments;
+package com.quovirus.proximityalarm.fragments;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -28,8 +28,8 @@ import android.view.View;
 
 import com.larswerkman.holocolorpicker.ColorPicker;
 
-import ch.uepaa.quickstart.BuildConfig;
-import ch.uepaa.quickstart.R;
+import com.quovirus.proximityalarm.BuildConfig;
+import com.quovirus.proximityalarm.R;
 
 /**
  * Color picker.

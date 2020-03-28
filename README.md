@@ -13,7 +13,7 @@ p2pkit is an easy to use SDK that bundles together several proximity technologie
 
 2. Once you have an account you can log-in to the console and create an application key: [Create your Application Key](https://p2pkit-console.uepaa.ch/login)
 
-> **Note:** p2pkit validates package names so don't forget to add ``ch.uepaa.quickstart`` to the known package names when creating your application key
+> **Note:** p2pkit validates package names so don't forget to add ``com.quovirus.proximityalarm`` to the known package names when creating your application key
 
 3. Head to the ``MainActivity.java`` file and replace ``<YOUR APPLICATION KEY>`` with your new key:
 
