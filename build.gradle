@@ -5,7 +5,7 @@ buildscript {
         google()
         jcenter()
         maven {
-            url "http://p2pkit.io/maven2"
+            url 'http://p2pkit.io/maven2'
         }
     }
     dependencies {
