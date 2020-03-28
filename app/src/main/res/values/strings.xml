@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">p2pkit</string>
+    <string name="app_name">Proximity Sensor</string>
     <string name="console">Console</string>
     <string name="console_kit">Enable\np2pkit</string>
     <string name="console_p2p">P2P\nDiscovery</string>

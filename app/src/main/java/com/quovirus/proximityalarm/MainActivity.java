@@ -1,4 +1,4 @@
-package ch.uepaa.quickstart;
+package com.quovirus.proximityalarm;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
@@ -28,12 +28,12 @@ import ch.uepaa.p2pkit.discovery.DiscoveryListener;
 import ch.uepaa.p2pkit.discovery.DiscoveryPowerMode;
 import ch.uepaa.p2pkit.discovery.Peer;
 import ch.uepaa.p2pkit.discovery.ProximityStrength;
-import ch.uepaa.quickstart.fragments.ColorPickerFragment;
-import ch.uepaa.quickstart.fragments.ConsoleFragment;
-import ch.uepaa.quickstart.graph.Graph;
-import ch.uepaa.quickstart.graph.GraphView;
-import ch.uepaa.quickstart.utils.ColorStorage;
-import ch.uepaa.quickstart.utils.Logger;
+import com.quovirus.proximityalarm.fragments.ColorPickerFragment;
+import com.quovirus.proximityalarm.fragments.ConsoleFragment;
+import com.quovirus.proximityalarm.graph.Graph;
+import com.quovirus.proximityalarm.graph.GraphView;
+import com.quovirus.proximityalarm.utils.ColorStorage;
+import com.quovirus.proximityalarm.utils.Logger;
 
 public class MainActivity extends AppCompatActivity implements ConsoleFragment.ConsoleListener, ColorPickerFragment.ColorPickerListener {
 
@@ -181,7 +181,7 @@ public class MainActivity extends AppCompatActivity implements ConsoleFragment.C
         storage = new ColorStorage(this);
 
         graphView = (GraphView) findViewById(R.id.graph);
-
+/*
         FloatingActionButton colorActionButton = (FloatingActionButton) findViewById(R.id.color_action);
         colorActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -189,7 +189,7 @@ public class MainActivity extends AppCompatActivity implements ConsoleFragment.C
                 showColorPicker();
             }
         });
-
+*/
         enableP2PKit();
     }
 
@@ -431,5 +431,4 @@ public class MainActivity extends AppCompatActivity implements ConsoleFragment.C
         }
         getWindow().getDecorView().setSystemUiVisibility(flags);
     }
-
 }
