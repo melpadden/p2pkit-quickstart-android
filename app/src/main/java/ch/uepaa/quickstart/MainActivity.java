@@ -37,7 +37,7 @@ import ch.uepaa.quickstart.utils.Logger;
 
 public class MainActivity extends AppCompatActivity implements ConsoleFragment.ConsoleListener, ColorPickerFragment.ColorPickerListener {
 
-    private static final String APP_KEY = "<CHANGE ME>";
+    private static final String APP_KEY = "cf496f11d44d4f6d9ee21d6fe81c2317";
 
     public void enableP2PKit() {
         try {

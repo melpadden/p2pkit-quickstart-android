@@ -39,4 +39,6 @@ dependencies {
     implementation 'com.larswerkman:HoloColorPicker:1.5'
     // p2pkit
     implementation 'ch.uepaa.p2p:p2pkit-android:2.+'
+    //noinspection GradleDeprecatedConfiguration
+    //compile 'ch.uepaa.p2p:p2pkit-android:2.1.3'
 }
